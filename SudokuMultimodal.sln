@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2037
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SudokuMultimodal", "SudokuMultimodal\SudokuMultimodal.csproj", "{5C502226-8B6D-4109-8E95-99AC3DA92D4D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WiimoteLib", "WiimoteLib\WiimoteLib.csproj", "{37A555DF-7012-4B99-8A47-1C922A361E52}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WiimoteTest", "WiimoteTest\WiimoteTest.csproj", "{48223EAB-B2E0-4A64-9074-4444662EB693}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GestureLib", "GestureLib\GestureLib.csproj", "{27C68E4E-72F5-425F-9668-E74C4B8995EB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5C502226-8B6D-4109-8E95-99AC3DA92D4D}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{5C502226-8B6D-4109-8E95-99AC3DA92D4D}.Debug|Any CPU.Build.0 = Debug|x86
+		{5C502226-8B6D-4109-8E95-99AC3DA92D4D}.Debug|x86.ActiveCfg = Debug|x86
+		{5C502226-8B6D-4109-8E95-99AC3DA92D4D}.Debug|x86.Build.0 = Debug|x86
+		{5C502226-8B6D-4109-8E95-99AC3DA92D4D}.Release|Any CPU.ActiveCfg = Release|x86
+		{5C502226-8B6D-4109-8E95-99AC3DA92D4D}.Release|Any CPU.Build.0 = Release|x86
+		{5C502226-8B6D-4109-8E95-99AC3DA92D4D}.Release|x86.ActiveCfg = Release|x86
+		{5C502226-8B6D-4109-8E95-99AC3DA92D4D}.Release|x86.Build.0 = Release|x86
+		{37A555DF-7012-4B99-8A47-1C922A361E52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37A555DF-7012-4B99-8A47-1C922A361E52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37A555DF-7012-4B99-8A47-1C922A361E52}.Debug|x86.ActiveCfg = Debug|x86
+		{37A555DF-7012-4B99-8A47-1C922A361E52}.Debug|x86.Build.0 = Debug|x86
+		{37A555DF-7012-4B99-8A47-1C922A361E52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37A555DF-7012-4B99-8A47-1C922A361E52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37A555DF-7012-4B99-8A47-1C922A361E52}.Release|x86.ActiveCfg = Release|x86
+		{37A555DF-7012-4B99-8A47-1C922A361E52}.Release|x86.Build.0 = Release|x86
+		{48223EAB-B2E0-4A64-9074-4444662EB693}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48223EAB-B2E0-4A64-9074-4444662EB693}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48223EAB-B2E0-4A64-9074-4444662EB693}.Debug|x86.ActiveCfg = Debug|x86
+		{48223EAB-B2E0-4A64-9074-4444662EB693}.Debug|x86.Build.0 = Debug|x86
+		{48223EAB-B2E0-4A64-9074-4444662EB693}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48223EAB-B2E0-4A64-9074-4444662EB693}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48223EAB-B2E0-4A64-9074-4444662EB693}.Release|x86.ActiveCfg = Release|x86
+		{48223EAB-B2E0-4A64-9074-4444662EB693}.Release|x86.Build.0 = Release|x86
+		{27C68E4E-72F5-425F-9668-E74C4B8995EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27C68E4E-72F5-425F-9668-E74C4B8995EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27C68E4E-72F5-425F-9668-E74C4B8995EB}.Debug|x86.ActiveCfg = Debug|x86
+		{27C68E4E-72F5-425F-9668-E74C4B8995EB}.Debug|x86.Build.0 = Debug|x86
+		{27C68E4E-72F5-425F-9668-E74C4B8995EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27C68E4E-72F5-425F-9668-E74C4B8995EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27C68E4E-72F5-425F-9668-E74C4B8995EB}.Release|x86.ActiveCfg = Release|x86
+		{27C68E4E-72F5-425F-9668-E74C4B8995EB}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2891A6A8-6E5F-487F-A70D-D720E5084E21}
+	EndGlobalSection
+EndGlobal
