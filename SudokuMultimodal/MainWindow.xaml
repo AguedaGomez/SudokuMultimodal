@@ -27,6 +27,7 @@
                     </CheckBox.LayoutTransform>
                     Ver posibles
                 </CheckBox>
+                <Button FontSize="30" Margin="10,10,0,10" Click="Button_Click">Toca para hablar</Button>
             </StackPanel>
 
         </DockPanel>

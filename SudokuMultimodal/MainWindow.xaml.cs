@@ -33,6 +33,7 @@ namespace SudokuMultimodal
         UniformGrid _ug;
         int _filaActual, _columnaActual;
         bool mostrarPosibles;
+        Speech speech;
 
         void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
@@ -43,8 +44,14 @@ namespace SudokuMultimodal
             mainGrid.Children.Add(_ug);
             _cuadrantes = new Cuadrante[Sudoku.Tamaño];
 
+            InicializarFuncionMultimodal();
 
             NuevaPartida();
+        }
+
+        private void InicializarFuncionMultimodal()
+        {
+            speech = new Speech(SolicitudCambioNúmero);
         }
 
         void NuevaPartida() //Mientras no cambiemos el constructor de Sudoku siempre es la misma partida
@@ -202,7 +209,7 @@ namespace SudokuMultimodal
 
         void MostrarNumeros()
         {
-            //muestro la lista de numeros
+            //muestro la lista de numeros ¿?
         }
 
         void botónNuevoClick(object sender, RoutedEventArgs e)
@@ -219,6 +226,11 @@ namespace SudokuMultimodal
         {
             Button b = (Button)sender;
             SolicitudCambioNúmero(_filaActual, _columnaActual, int.Parse(b.Content.ToString()));
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            speech.startRecognition = true;
         }
 
         void checkboxVerPosiblesClick(object sender, RoutedEventArgs e)
