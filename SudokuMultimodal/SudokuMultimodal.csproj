@@ -137,6 +137,9 @@
     <Content Include="dlls-rec-tinta\IACore.dll" />
     <Content Include="dlls-rec-tinta\IALoader.dll" />
     <Content Include="dlls-rec-tinta\IAWinFX.dll" />
+    <Resource Include="Gramatica.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WiimoteLib\WiimoteLib.csproj">
