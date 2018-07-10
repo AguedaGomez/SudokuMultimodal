@@ -11,15 +11,17 @@ namespace SudokuMultimodal
     {
         SpeechRecognitionEngine speechRecognizer = new SpeechRecognitionEngine(new System.Globalization.CultureInfo("es-ES"));
         Action<int, int, int> SolicitudCambioNumero;
+        Action<int> SolicitudCambioNúmeroPosActual;
         int numero;
         int fila;
         int columna;
 
         public bool startRecognition { get; set; }
 
-        public Speech(Action<int, int, int> SolicitudCambioNumero)
+        public Speech(Action<int, int, int> SolicitudCambioNumero, Action<int> SolicitudCambioNúmeroPosActual)
         {
             this.SolicitudCambioNumero = SolicitudCambioNumero;
+            this.SolicitudCambioNúmeroPosActual = SolicitudCambioNúmeroPosActual;
             Grammar grammar = new Grammar("Gramatica.xml");
             speechRecognizer.LoadGrammar(grammar);
             speechRecognizer.SpeechRecognized += SpeechRecognizer_SpeechRecognized;
@@ -42,10 +44,18 @@ namespace SudokuMultimodal
                 Console.WriteLine(e.Result.Text);
                 startRecognition = false;
                 numero = Int32.Parse(e.Result.Semantics["Numero"].Value.ToString());
-                fila = Int32.Parse(e.Result.Semantics["Fila"].Value.ToString());
-                columna = Int32.Parse(e.Result.Semantics["Columna"].Value.ToString());
+                if (e.Result.Semantics["Fila"].Value.ToString() != "-1" & e.Result.Semantics["Columna"].Value.ToString() != "-1")
+                {
+                    fila = Int32.Parse(e.Result.Semantics["Fila"].Value.ToString());
+                    columna = Int32.Parse(e.Result.Semantics["Columna"].Value.ToString());
+                    SolicitudCambioNumero(fila, columna, numero);
+                }
+                else
+                {
+                    SolicitudCambioNúmeroPosActual(numero);
+                }
                 
-                SolicitudCambioNumero(fila, columna, numero);
+                
             }
         }
     }

@@ -51,7 +51,7 @@ namespace SudokuMultimodal
 
         private void InicializarFuncionMultimodal()
         {
-            speech = new Speech(SolicitudCambioNúmero);
+            speech = new Speech(SolicitudCambioNúmero, SolicitudCambioNúmeroPosActual);
         }
 
         void NuevaPartida() //Mientras no cambiemos el constructor de Sudoku siempre es la misma partida
@@ -204,13 +204,18 @@ namespace SudokuMultimodal
         void SolicitudSeleccionada(int fila, int col)
         {
             PonSelecciónEn(fila, col);
-            MostrarNumeros();
+            //MostrarNumeros();
         }
 
-        void MostrarNumeros()
+        void SolicitudCambioNúmeroPosActual(int numero)
+        {
+            SolicitudCambioNúmero(_filaActual, _columnaActual, numero);
+        }
+
+       /* void MostrarNumeros()
         {
             //muestro la lista de numeros ¿?
-        }
+        }*/
 
         void botónNuevoClick(object sender, RoutedEventArgs e)
         {
