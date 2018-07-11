@@ -9,50 +9,28 @@
       </one-of>
     </item>
     <item repeat="0-1"> un </item>
-    <ruleref uri="#Numero"/> <tag>out.Numero=rules.Numero;</tag>
-    <item repeat="0-1"> en </item>
-    <item>
-      <tag> out.Fila="-1"</tag>
-      <tag> out.Columna="-1"</tag>
-    </item>
+    <ruleref uri="#Numero"/>
+    <tag>out.Numero=rules.Numero;</tag>
+    <tag> out.Fila="-1"</tag>
+    <tag> out.Columna="-1"</tag>
     <item repeat="0-1">
-      <one-of>
-        <item>
-          <ruleref uri="#Fila"/>
-          <tag> out.Fila=rules.Fila</tag>
-          <ruleref uri="#Columna"/>
-          <tag> out.Columna=rules.Columna</tag>
-        </item>
-        <item>
-          la posición <ruleref uri="#Fila"/> <tag> out.Fila=rules.Fila</tag> <ruleref uri="#Columna"/> <tag> out.Columna=rules.Columna</tag>
-        </item>
-        <item>
-          la fila <ruleref uri="#Fila"/> <tag> out.Fila=rules.Fila</tag> columna <ruleref uri="#Columna"/> <tag> out.Columna=rules.Columna</tag>
-        </item>
-
-      </one-of>
-    </item>
-  </rule>
-
-  <rule id="Fila" scope="public">
-    <item>
+      <item> en </item>
+      <item repeat="0-1">
+        <one-of>
+          <item> la posicion </item>
+          <item> la fila </item>
+        </one-of>
+      </item>
       <ruleref uri="#Numero"/>
-      <tag> out = rules.Numero; </tag>
-    </item>
-  </rule>
-
-  <rule id="Columna" scope="public">
-    <item>
+      <tag> out.Fila=rules.Numero</tag>
+      <item repeat="0-1"> columna </item>
       <ruleref uri="#Numero"/>
-      <tag> out = rules.Numero; </tag>
+      <tag> out.Columna=rules.Numero</tag>
     </item>
   </rule>
 
   <rule id="Numero" scope="public">
     <one-of>
-      <item>
-        cero <tag>out = "0";</tag>
-      </item>
       <item>
         uno <tag> out = "1";</tag>
       </item>

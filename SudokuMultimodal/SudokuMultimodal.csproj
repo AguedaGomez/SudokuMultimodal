@@ -89,6 +89,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="WiimoteFunctionality.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -137,11 +138,19 @@
     <Content Include="dlls-rec-tinta\IACore.dll" />
     <Content Include="dlls-rec-tinta\IALoader.dll" />
     <Content Include="dlls-rec-tinta\IAWinFX.dll" />
+    <EmbeddedResource Include="Gestos.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="Gramatica.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\GestureLib\GestureLib.csproj">
+      <Project>{27C68E4E-72F5-425F-9668-E74C4B8995EB}</Project>
+      <Name>GestureLib</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WiimoteLib\WiimoteLib.csproj">
       <Project>{37A555DF-7012-4B99-8A47-1C922A361E52}</Project>
       <Name>WiimoteLib</Name>

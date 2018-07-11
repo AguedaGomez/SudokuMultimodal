@@ -34,6 +34,7 @@ namespace SudokuMultimodal
         int _filaActual, _columnaActual;
         bool mostrarPosibles;
         Speech speech;
+        WiimoteFunctionality wmF;
 
         void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
@@ -51,7 +52,8 @@ namespace SudokuMultimodal
 
         private void InicializarFuncionMultimodal()
         {
-            speech = new Speech(SolicitudCambioNúmero, SolicitudCambioNúmeroPosActual);
+            speech = new Speech(SolicitudCambioNúmero, SolicitudCambioNúmeroPosActual, PonSelecciónEn);
+            wmF = new WiimoteFunctionality(SolicitudCambioNúmeroPosActual, MoverSeleccion);
         }
 
         void NuevaPartida() //Mientras no cambiemos el constructor de Sudoku siempre es la misma partida
@@ -164,6 +166,35 @@ namespace SudokuMultimodal
             _cuadrantes[cuad2].SeleccionaCelda(pos2);
             _filaActual = fil;
             _columnaActual = col;
+        }
+
+        void MoverSeleccion(string direccion)
+        {
+            int fila = _filaActual;
+            int columna = _columnaActual;
+            switch (direccion)
+            {
+                case "derecha":
+                    if (columna < Sudoku.Tamaño-1)
+                        columna += 1;
+                    break;
+                case "izquierda":
+                    if (columna > 0)
+                        columna -= 1;
+                    break;
+                case "arriba":
+                    if (fila > 0)
+                        fila -= 1;
+                    break;
+                case "abajo":
+                    if (fila < Sudoku.Tamaño-1)
+                    fila += 1;
+                    break;
+                default:
+                    break;
+            }
+            PonSelecciónEn(fila, columna);
+
         }
 
         void ActualizaPosibles()
