@@ -30,7 +30,15 @@ namespace SudokuMultimodal
             gestureRecognizer = new GestureRecognizer();
             CargarGestos();
             wm.WiimoteChanged += Wm_WiimoteChanged;
-            wm.Connect();
+            try
+            {
+                wm.Connect();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("El dispositivo Wiimote no está conectado");
+            }
+            
             wm.SetReportType(InputReport.ButtonsAccel, true);
             gestureCapturer.GestureCaptured += GestureCapturer_GestureCaptured;
             gestureRecognizer.GestureRecognized += GestureRecognizer_GestureRecognized;

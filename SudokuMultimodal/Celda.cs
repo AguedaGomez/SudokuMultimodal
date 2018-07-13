@@ -6,6 +6,8 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows;
 using System.Windows.Media;
+using System.Windows.Data;
+using System.Windows.Ink;
 
 namespace SudokuMultimodal
 {
@@ -20,6 +22,7 @@ namespace SudokuMultimodal
             {
                 _estáSeleccionado = value;
                 selecciónBorde.Visibility = _estáSeleccionado ? Visibility.Visible : Visibility.Hidden;
+                inkCanvas.Visibility = _estáSeleccionado ? Visibility.Visible : Visibility.Hidden;
             }
         }
 
@@ -33,6 +36,10 @@ namespace SudokuMultimodal
             UI.MouseDown += new System.Windows.Input.MouseButtonEventHandler(UI_MouseDown);
             var grid = new Grid();
             UI.Child = grid;
+            Binding bindingAltura = new Binding("ActualHeight") { Source = grid };
+            BindingOperations.SetBinding(inkCanvas, FrameworkElement.HeightProperty, bindingAltura);
+            inkCanvas.DefaultDrawingAttributes = tintaDA;
+            grid.Children.Add(inkCanvas);
             grid.Children.Add(_uniformGrid);
             for (int i = 0; i < Sudoku.Tamaño; ++i)
                 _uniformGrid.Children.Add(new TextBlock()
@@ -42,12 +49,15 @@ namespace SudokuMultimodal
                     HorizontalAlignment = HorizontalAlignment.Center,
                     VerticalAlignment = VerticalAlignment.Center
                 });
+            
             grid.Children.Add(_textBlock);
             grid.Children.Add(selecciónBorde);
+           
             _modificable = número == 0;
             _textBlock.Foreground = _modificable ? Brushes.Blue : Brushes.Black;
             if (número != 0)
                 ForzarPonerNúmero(número);
+            tinta = new Tinta(inkCanvas, _solicitudCambioNúmero);
         }
 
         void UI_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -97,8 +107,13 @@ namespace SudokuMultimodal
         Action _solicitudSeleccionada;
         static FontFamily _fuente = new FontFamily("Comic Sans MS");
         bool _estáSeleccionado;
+        Tinta tinta;
 
         Border selecciónBorde = new Border() { BorderBrush = Brushes.Red, BorderThickness = new Thickness(2), Visibility = Visibility.Hidden };
+
+        InkCanvas inkCanvas = new InkCanvas() { Visibility = Visibility.Hidden};
+
+        DrawingAttributes tintaDA = new DrawingAttributes() { Color = Colors.Blue, Height = 4, Width = 4 };
 
         UniformGrid _uniformGrid = new UniformGrid() { Rows = Sudoku.Tamaño / 3, Columns = Sudoku.Tamaño / 3 };
 

@@ -45,15 +45,15 @@ namespace SudokuMultimodal
             mainGrid.Children.Add(_ug);
             _cuadrantes = new Cuadrante[Sudoku.Tamaño];
 
-            InicializarFuncionMultimodal();
-
             NuevaPartida();
+            InicializarFuncionMultimodal();
         }
 
         private void InicializarFuncionMultimodal()
         {
             speech = new Speech(SolicitudCambioNúmero, SolicitudCambioNúmeroPosActual, PonSelecciónEn);
             wmF = new WiimoteFunctionality(SolicitudCambioNúmeroPosActual, MoverSeleccion);
+            
         }
 
         void NuevaPartida() //Mientras no cambiemos el constructor de Sudoku siempre es la misma partida
@@ -235,6 +235,7 @@ namespace SudokuMultimodal
         void SolicitudSeleccionada(int fila, int col)
         {
             PonSelecciónEn(fila, col);
+            //CrearInkCanvas(); //eliminar
             //MostrarNumeros();
         }
 
@@ -275,6 +276,17 @@ namespace SudokuMultimodal
             ActualizaPosibles();
         }
 
+       /* void CrearInkCanvas()
+        {
+           var inkCanvas = new InkCanvas()
+            {
+                RenderSize = ,
+                Background = Brushes.Coral,
+            };
+
+            _ug.Children.Add(inkCanvas);
+        }*/
+            
         #endregion
     }
 }
