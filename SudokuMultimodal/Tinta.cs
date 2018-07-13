@@ -27,12 +27,11 @@ namespace SudokuMultimodal
             m_analyzer.ResultsUpdated += M_analizer_ResultsUpdated;
             inkCanvas.StrokeCollected += InkCanvas_StrokeCollected;
             inkCanvas.StrokeErasing += InkCanvas_StrokeErasing;
-            inkCanvas.StylusUp += InkCanvas_StylusUp;
-            inkCanvas.StylusMove += InkCanvas_StylusMove;
             dispatcherTimer = new DispatcherTimer();
             dispatcherTimer.Tick += DispatcherTimer_Tick;
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 500);
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 700);
         }
+
 
         private void InkCanvas_StrokeErasing(object sender, InkCanvasStrokeErasingEventArgs e)
         {
@@ -41,23 +40,17 @@ namespace SudokuMultimodal
 
         private void DispatcherTimer_Tick(object sender, EventArgs e)
         {
+            Console.WriteLine("STOP");
             m_analyzer.BackgroundAnalyze();
             dispatcherTimer.Stop();
         }
 
-        private void InkCanvas_StylusMove(object sender, System.Windows.Input.StylusEventArgs e)
-        {
-            dispatcherTimer.Stop();
-        }
-
-        private void InkCanvas_StylusUp(object sender, System.Windows.Input.StylusEventArgs e)
-        {
-            dispatcherTimer.Start();
-        }
-
         private void InkCanvas_StrokeCollected(object sender, InkCanvasStrokeCollectedEventArgs e)
         {
+            dispatcherTimer.Stop();
             m_analyzer.AddStroke(e.Stroke);
+            dispatcherTimer.Start();
+            Console.WriteLine("START");
         }
 
         private void M_analizer_ResultsUpdated(object sender, ResultsUpdatedEventArgs e)

@@ -22,7 +22,7 @@ namespace SudokuMultimodal
             {
                 _estáSeleccionado = value;
                 selecciónBorde.Visibility = _estáSeleccionado ? Visibility.Visible : Visibility.Hidden;
-                inkCanvas.Visibility = _estáSeleccionado ? Visibility.Visible : Visibility.Hidden;
+                inkCanvas.Visibility = _estáSeleccionado & _modificable ? Visibility.Visible : Visibility.Hidden;
             }
         }
 
@@ -62,6 +62,8 @@ namespace SudokuMultimodal
 
         void UI_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
+            if (this._estáSeleccionado)
+                QuitarNúmero();
             _solicitudSeleccionada();
         }
 
