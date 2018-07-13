@@ -49,6 +49,12 @@ namespace SudokuMultimodal
             NuevaPartida();
             InicializarFuncionMultimodal();
             memoria = new MemoriaNumerosIntroducidos();
+            memoria.finCuadrantesOcupados += Memoria_finCuadrantesOcupados;
+        }
+
+        private void Memoria_finCuadrantesOcupados(bool obj)
+        {
+            BotonDeshacer.IsEnabled = obj;
         }
 
         private void InicializarFuncionMultimodal()
@@ -244,8 +250,9 @@ namespace SudokuMultimodal
 
         private void DeshacerMovimiento()
         {
-            int cuadrante, posicion;
-            memoria.GetUltimoMovimiento(out cuadrante, out posicion);
+            memoria.GetUltimoMovimiento(out int cuadrante, out int posicion);
+            Sudoku.CuadrantePosicionAFilaColumna(cuadrante, posicion, out int fila, out int columna);
+            PonSelecciónEn(fila, columna);
             _cuadrantes[cuadrante].QuitarNúmeroEnPos(posicion);
             memoria.DeshacerUltimoMovimiento();
         }

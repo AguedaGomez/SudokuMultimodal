@@ -8,6 +8,7 @@ namespace SudokuMultimodal
 {
     public class MemoriaNumerosIntroducidos
     {
+        public event Action<bool> finCuadrantesOcupados;
        Stack<KeyValuePair<int,int>> pilaCuadrantesOcupados;
 
         public MemoriaNumerosIntroducidos()
@@ -18,6 +19,8 @@ namespace SudokuMultimodal
         public void GuardarMovimiento (KeyValuePair<int, int> mov)
         {
             pilaCuadrantesOcupados.Push(mov);
+            if (pilaCuadrantesOcupados.Count == 1)
+                finCuadrantesOcupados(true);
         }
 
         public void GetUltimoMovimiento (out int cuadrante, out int posicion)
@@ -30,7 +33,9 @@ namespace SudokuMultimodal
         public void DeshacerUltimoMovimiento ()
         {
             pilaCuadrantesOcupados.Pop();
-            
+            if (pilaCuadrantesOcupados.Count <= 0)
+                finCuadrantesOcupados.Invoke(false);
         }
+
     }
 }

@@ -28,9 +28,8 @@
                     Ver posibles
                 </CheckBox>
                 <Button FontSize="30" Margin="10,10,0,10" Click="Button_Click">Escuchar</Button>
-                <Button Name="BotonDeshacer" FontSize="30" Margin="10,10,0,10" Click="BotonDeshacer_Click">Deshacer</Button>
+                <Button Name="BotonDeshacer" FontSize="30" Margin="10,10,0,10" Click="BotonDeshacer_Click" IsEnabled="False">Deshacer</Button>
             </StackPanel>
-
         </DockPanel>
     </Viewbox>
 </Window>
