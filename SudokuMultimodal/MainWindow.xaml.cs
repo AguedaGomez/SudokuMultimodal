@@ -35,6 +35,7 @@ namespace SudokuMultimodal
         bool mostrarPosibles;
         Speech speech;
         WiimoteFunctionality wmF;
+        MemoriaNumerosIntroducidos memoria;
 
         void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
@@ -47,6 +48,7 @@ namespace SudokuMultimodal
 
             NuevaPartida();
             InicializarFuncionMultimodal();
+            memoria = new MemoriaNumerosIntroducidos();
         }
 
         private void InicializarFuncionMultimodal()
@@ -230,24 +232,33 @@ namespace SudokuMultimodal
         void SolicitudCambioNúmero(int fila, int col, int número)
         {
             _s[fila, col] = número;
+            GuardarMovimiento();
+        }
+
+        private void GuardarMovimiento()
+        {
+            int cuadrante, posición;
+            Sudoku.FilaColumnaACuadrantePosicion(_filaActual, _columnaActual, out cuadrante, out posición);
+            memoria.GuardarMovimiento(new KeyValuePair<int, int>(cuadrante, posición));
+        }
+
+        private void DeshacerMovimiento()
+        {
+            int cuadrante, posicion;
+            memoria.GetUltimoMovimiento(out cuadrante, out posicion);
+            _cuadrantes[cuadrante].QuitarNúmeroEnPos(posicion);
+            memoria.DeshacerUltimoMovimiento();
         }
 
         void SolicitudSeleccionada(int fila, int col)
         {
             PonSelecciónEn(fila, col);
-            //CrearInkCanvas(); //eliminar
-            //MostrarNumeros();
         }
 
         void SolicitudCambioNúmeroPosActual(int numero)
         {
             SolicitudCambioNúmero(_filaActual, _columnaActual, numero);
         }
-
-       /* void MostrarNumeros()
-        {
-            //muestro la lista de numeros ¿?
-        }*/
 
         void botónNuevoClick(object sender, RoutedEventArgs e)
         {
@@ -270,22 +281,16 @@ namespace SudokuMultimodal
             speech.startRecognition = true;
         }
 
+        private void BotonDeshacer_Click(object sender, RoutedEventArgs e)
+        {
+            DeshacerMovimiento();
+        }
+
         void checkboxVerPosiblesClick(object sender, RoutedEventArgs e)
         {
             mostrarPosibles = (sender as CheckBox).IsChecked == true;
             ActualizaPosibles();
         }
-
-       /* void CrearInkCanvas()
-        {
-           var inkCanvas = new InkCanvas()
-            {
-                RenderSize = ,
-                Background = Brushes.Coral,
-            };
-
-            _ug.Children.Add(inkCanvas);
-        }*/
             
         #endregion
     }

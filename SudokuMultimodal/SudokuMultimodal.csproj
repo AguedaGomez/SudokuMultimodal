@@ -97,6 +97,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="MemoriaNumerosIntroducidos.cs" />
     <Compile Include="Tinta.cs" />
     <Compile Include="WiimoteFunctionality.cs" />
     <Page Include="MainWindow.xaml">
