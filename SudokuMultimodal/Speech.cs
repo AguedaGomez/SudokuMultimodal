@@ -11,6 +11,10 @@ namespace SudokuMultimodal
     public class Speech
     {
         public bool hayMovimientos;
+        public bool StartRecognition { get; set; }
+        public event Action TerminaEscucha;
+
+        #region private
         SpeechRecognitionEngine speechRecognizer = new SpeechRecognitionEngine(new System.Globalization.CultureInfo("es-ES"));
         Action<int, int, int> SolicitudCambioNumero;
         Action<int> SolicitudCambioNúmeroPosActual;
@@ -21,8 +25,7 @@ namespace SudokuMultimodal
         int columna;
         int mvtosDeshechos, mvtosADeshacer;
         DispatcherTimer dispatcherTimer;
-
-        public bool startRecognition { get; set; }
+        #endregion
 
         public Speech(Action<int, int, int> SolicitudCambioNumero, Action<int> SolicitudCambioNúmeroPosActual, Action<int, int> PonSelecciónEn, Action DeshacerMovimiento)
         {
@@ -36,7 +39,7 @@ namespace SudokuMultimodal
             speechRecognizer.SpeechDetected += SpeechRecognizer_SpeechDetected;
             speechRecognizer.SetInputToDefaultAudioDevice();
             speechRecognizer.RecognizeAsync(RecognizeMode.Multiple);
-            startRecognition = false;
+            StartRecognition = false;
             dispatcherTimer = new DispatcherTimer();
             dispatcherTimer.Tick += DispatcherTimer_Tick;
             dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 550);
@@ -62,16 +65,16 @@ namespace SudokuMultimodal
 
         private void SpeechRecognizer_SpeechDetected(object sender, SpeechDetectedEventArgs e)
         {
-            if(startRecognition)
+            if(StartRecognition)
                 Console.WriteLine("Voz detectada");
         }
 
         private void SpeechRecognizer_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
-            if (startRecognition)
+            if (StartRecognition)
             {
                 Console.WriteLine(e.Result.Text);
-                startRecognition = false;
+                StartRecognition = false;
                 if (e.Result.Text.Contains("Deshacer"))
                 {
                     mvtosADeshacer = Int32.Parse(e.Result.Semantics["Cantidad"].Value.ToString());
@@ -92,7 +95,8 @@ namespace SudokuMultimodal
                     {
                         SolicitudCambioNúmeroPosActual(numero);
                     }
-                } 
+                }
+                TerminaEscucha();
             }
         }
     }

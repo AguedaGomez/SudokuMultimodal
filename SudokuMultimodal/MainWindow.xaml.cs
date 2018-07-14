@@ -61,8 +61,15 @@ namespace SudokuMultimodal
         private void InicializarFuncionMultimodal()
         {
             speech = new Speech(SolicitudCambioNúmero, SolicitudCambioNúmeroPosActual, PonSelecciónEn, DeshacerMovimiento);
+            speech.TerminaEscucha += Speech_TerminaEscucha;
             wmF = new WiimoteFunctionality(SolicitudCambioNúmeroPosActual, MoverSeleccion);
             
+        }
+
+        private void Speech_TerminaEscucha()
+        {
+            BotonEscuchar.IsEnabled = true;
+            BotonEscuchar.Content = "Escuchar";
         }
 
         void NuevaPartida() //Mientras no cambiemos el constructor de Sudoku siempre es la misma partida
@@ -286,7 +293,9 @@ namespace SudokuMultimodal
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            speech.startRecognition = true;
+            speech.StartRecognition = true;
+            BotonEscuchar.Content = "Escuchando";
+            BotonEscuchar.IsEnabled = false;
         }
 
         private void BotonDeshacer_Click(object sender, RoutedEventArgs e)
