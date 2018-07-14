@@ -4,19 +4,49 @@
         Title="Sudoku" Height="470" Width="600" MinWidth="600" MinHeight="470">
     <Viewbox Stretch="Uniform" Margin="10">
         <DockPanel LastChildFill="False">
-            <StackPanel>
-                <Grid Name="mainGrid" DockPanel.Dock="Left" Width="{Binding ElementName=mainGrid, Path=ActualHeight}"/>
-                <UniformGrid Name="gridNumeros" DockPanel.Dock="Bottom"  Columns="9" Margin="2">
-                    <Button Name="numero1" Click="numero_Click">1</Button>
-                    <Button Click="numero_Click">2</Button>
-                    <Button Click="numero_Click">3</Button>
-                    <Button Click="numero_Click">4</Button>
-                    <Button Click="numero_Click">5</Button>
-                    <Button Click="numero_Click">6</Button>
-                    <Button Click="numero_Click">7</Button>
-                    <Button Click="numero_Click">8</Button>
-                    <Button Click="numero_Click">9</Button>
+            <StackPanel Orientation="Horizontal">
+                <UniformGrid x:Name="gridFilas" Rows="9" Margin="2"  Height="{Binding ActualHeight, ElementName=mainGrid}">
+                    <Label VerticalContentAlignment="Center" Content="1"/>
+                    <Label VerticalContentAlignment="Center" Content="2"/>
+                    <Label VerticalContentAlignment="Center" Content="3"/>
+                    <Label VerticalContentAlignment="Center" Content="4"/>
+                    <Label VerticalContentAlignment="Center" Content="5"/>
+                    <Label VerticalContentAlignment="Center" Content="6"/>
+                    <Label VerticalContentAlignment="Center" Content="7"/>
+                    <Label VerticalContentAlignment="Center" Content="8"/>
+                    <Label VerticalContentAlignment="Center" Content="9"/>
                 </UniformGrid>
+                <StackPanel>
+                    <UniformGrid x:Name="gridColumnas" Columns="9" >
+                        <Label HorizontalContentAlignment="Center" Content="1"/>
+                        <Label HorizontalContentAlignment="Center" Content="2"/>
+                        <Label HorizontalContentAlignment="Center" Content="3"/>
+                        <Label HorizontalContentAlignment="Center" Content="4"/>
+                        <Label HorizontalContentAlignment="Center" Content="5"/>
+                        <Label HorizontalContentAlignment="Center" Content="6"/>
+                        <Label HorizontalContentAlignment="Center" Content="7"/>
+                        <Label HorizontalContentAlignment="Center" Content="8"/>
+                        <Label HorizontalContentAlignment="Center" Content="9"/>
+                    </UniformGrid>
+                    <Grid x:Name="mainGrid"  Width="{Binding ActualHeight, ElementName=mainGrid}"/>
+                    <UniformGrid x:Name="gridNumeros" DockPanel.Dock="Bottom"  Columns="9" Margin="2">
+                        <Button x:Name="numero1" Click="numero_Click" Content="1"/>
+                        <Button Click="numero_Click" Content="2"/>
+                        <Button Click="numero_Click" Content="3"/>
+                        <Button Click="numero_Click" Content="4"/>
+                        <Button Click="numero_Click" Content="5"/>
+                        <Button Click="numero_Click" Content="6"/>
+                        <Button Click="numero_Click" Content="7"/>
+                        <Button Click="numero_Click" Content="8"/>
+                        <Button Click="numero_Click" Content="9"/>
+                    </UniformGrid>
+                </StackPanel>
+                
+                <StackPanel Orientation="Horizontal" DockPanel.Dock ="Left">
+
+                    
+                </StackPanel>
+
             </StackPanel>
             <StackPanel DockPanel.Dock="Right" VerticalAlignment="Center" HorizontalAlignment="Center" >
                 <Button FontSize="30" Margin="10,10,0,10" Click="botónNuevoClick">Nuevo</Button>
