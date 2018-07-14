@@ -113,7 +113,7 @@ namespace SudokuMultimodal
 
         Border selecciónBorde = new Border() { BorderBrush = Brushes.Red, BorderThickness = new Thickness(2), Visibility = Visibility.Hidden };
 
-        InkCanvas inkCanvas = new InkCanvas() { Visibility = Visibility.Hidden};
+        InkCanvas inkCanvas = new InkCanvas() { Visibility = Visibility.Hidden, Background = Brushes.WhiteSmoke};
 
         DrawingAttributes tintaDA = new DrawingAttributes() { Color = Colors.Blue, Height = 4, Width = 4 };
 

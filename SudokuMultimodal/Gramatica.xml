@@ -2,6 +2,17 @@
 <grammar version="1.0" xml:lang="es-ES" mode="voice" root="MainRule" xmlns="http://www.w3.org/2001/06/grammar" tag-format="semantics/1.0" >
 
   <rule id="MainRule" scope="public">
+    <one-of>
+      <item>
+        <ruleref uri="#ColocarNumero"></ruleref>
+      </item>
+      <item>
+        <ruleref uri="#Deshacer"></ruleref>
+      </item>
+    </one-of>
+  </rule>
+
+  <rule id="ColocarNumero" scope="public">
     <item repeat="0-1">
       <one-of>
         <item> poner </item>
@@ -26,6 +37,18 @@
       <item repeat="0-1"> columna </item>
       <ruleref uri="#Numero"/>
       <tag> out.Columna=rules.Numero</tag>
+    </item>
+  </rule>
+
+  <rule id="Deshacer" scope="public">
+    <item>Deshacer</item>
+    <tag>out.Cantidad="1";</tag>
+    <item repeat="0-1">
+      <one-of>
+        <item> el último</item>
+        <item> los <ruleref uri="#Numero"></ruleref><tag>out.Cantidad=rules.Numero;</tag> últimos
+      </item>
+      </one-of>
     </item>
   </rule>
 

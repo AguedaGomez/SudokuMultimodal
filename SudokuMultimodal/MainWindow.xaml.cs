@@ -55,11 +55,12 @@ namespace SudokuMultimodal
         private void Memoria_finCuadrantesOcupados(bool obj)
         {
             BotonDeshacer.IsEnabled = obj;
+            speech.hayMovimientos = obj;
         }
 
         private void InicializarFuncionMultimodal()
         {
-            speech = new Speech(SolicitudCambioNúmero, SolicitudCambioNúmeroPosActual, PonSelecciónEn);
+            speech = new Speech(SolicitudCambioNúmero, SolicitudCambioNúmeroPosActual, PonSelecciónEn, DeshacerMovimiento);
             wmF = new WiimoteFunctionality(SolicitudCambioNúmeroPosActual, MoverSeleccion);
             
         }
