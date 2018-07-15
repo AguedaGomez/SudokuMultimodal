@@ -44,11 +44,11 @@ namespace SudokuMultimodal
             _ug = new UniformGrid() { Rows = Sudoku.Tamaño / 3, Columns = Sudoku.Tamaño / 3, Background = Brushes.WhiteSmoke };
             mainGrid.Children.Add(_ug);
             _cuadrantes = new Cuadrante[Sudoku.Tamaño];
-
-            NuevaPartida();
-            InicializarFuncionMultimodal();
             memoria = new MemoriaNumerosIntroducidos();
             memoria.finCuadrantesOcupados += Memoria_finCuadrantesOcupados;
+            NuevaPartida();
+            InicializarFuncionMultimodal();
+
         }
 
         private void Memoria_finCuadrantesOcupados(bool obj)
@@ -76,6 +76,7 @@ namespace SudokuMultimodal
             _filaActual = _columnaActual = -1;
             _s = new Sudoku();
             _s.CeldaCambiada += CuandoCeldaCambiada;
+            memoria.EliminarMovimientos();
 
             ActualizarVistaSudoku();
 
@@ -292,7 +293,9 @@ namespace SudokuMultimodal
 
         void SolicitudCambioNúmeroPosActual(int numero)
         {
-            SolicitudCambioNúmero(_filaActual, _columnaActual, numero);
+            Sudoku.FilaColumnaACuadrantePosicion(_filaActual, _columnaActual, out int cuadrante, out int posicion);
+            _cuadrantes[cuadrante].PonerNúmeroEnPos(posicion, numero);
+            //SolicitudCambioNúmero(_filaActual, _columnaActual, numero);
         }
 
         void botónNuevoClick(object sender, RoutedEventArgs e)

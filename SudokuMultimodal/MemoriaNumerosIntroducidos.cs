@@ -36,6 +36,10 @@ namespace SudokuMultimodal
             if (listaCuadrantesOcupados.Count <= 0)
                 finCuadrantesOcupados.Invoke(false);
         }
+        public void EliminarMovimientos()
+        {
+            listaCuadrantesOcupados.Clear();
+        }
 
     }
 }
