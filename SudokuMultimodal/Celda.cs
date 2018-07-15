@@ -28,10 +28,11 @@ namespace SudokuMultimodal
 
         // solicitudCambioNúmero: Cuando la celda quiere cambiar el número que contiene (p.e. la tinta reconocida)
         // solicitudSeleccionada: cuando la celda solicita ser la seleccionada
-        public Celda(int número, Action<int> solicitudCambioNúmero, Action solicitudSeleccionada)
+        public Celda(int número, Action<int> solicitudCambioNúmero, Action solicitudSeleccionada, Action eliminarDeMemoria)
         {
             _solicitudCambioNúmero = solicitudCambioNúmero;
             _solicitudSeleccionada = solicitudSeleccionada;
+            _eliminarDeMemoria = eliminarDeMemoria;
             UI = new Border() { BorderBrush = Brushes.Black, BorderThickness = new Thickness(0.5), Background=Brushes.Transparent };
             UI.MouseDown += new System.Windows.Input.MouseButtonEventHandler(UI_MouseDown);
             var grid = new Grid();
@@ -81,6 +82,7 @@ namespace SudokuMultimodal
             _textBlock.Text = "";
             _textBlock.Visibility = Visibility.Hidden;
             _uniformGrid.Visibility = Visibility.Visible;
+            _eliminarDeMemoria();
         }
 
         public void PonerPosible(int número)
@@ -107,6 +109,7 @@ namespace SudokuMultimodal
 
         Action<int> _solicitudCambioNúmero;
         Action _solicitudSeleccionada;
+        Action _eliminarDeMemoria;
         static FontFamily _fuente = new FontFamily("Comic Sans MS");
         bool _estáSeleccionado;
         Tinta tinta;

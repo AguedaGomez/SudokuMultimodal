@@ -101,7 +101,7 @@ namespace SudokuMultimodal
 
             for (int cuad = 0; cuad < Sudoku.Tamaño; ++cuad)
             {
-                var cuadrante = new Cuadrante(_s, cuad, SolicitudCambioNúmero, SolicitudSeleccionada);
+                var cuadrante = new Cuadrante(_s, cuad, SolicitudCambioNúmero, SolicitudSeleccionada, EliminarDeMemoria);
                 _cuadrantes[cuad] = cuadrante;
                 _ug.Children.Add(cuadrante.UI);
             }
@@ -157,7 +157,8 @@ namespace SudokuMultimodal
                 case Key.D9:
                 case Key.NumPad9:
                     {
-                        _s[_filaActual, _columnaActual] = int.Parse(new string(e.Key.ToString()[1], 1));
+                        SolicitudCambioNúmero(_filaActual, _columnaActual, int.Parse(new string(e.Key.ToString()[1], 1)));
+                       // _s[_filaActual, _columnaActual] = int.Parse(new string(e.Key.ToString()[1], 1));
                         ActualizaPosibles();
                         e.Handled = true;
                     }
@@ -266,8 +267,14 @@ namespace SudokuMultimodal
                 Sudoku.CuadrantePosicionAFilaColumna(cuadrante, posicion, out int fila, out int columna);
                 PonSelecciónEn(fila, columna);
                 _cuadrantes[cuadrante].QuitarNúmeroEnPos(posicion);
-                memoria.DeshacerUltimoMovimiento();
             }
+
+        }
+
+        private void EliminarDeMemoria()
+        {
+            Sudoku.FilaColumnaACuadrantePosicion(_filaActual, _columnaActual, out int cuadrante, out int posicion);
+            memoria.EliminarCuadrante(new KeyValuePair<int, int>(cuadrante, posicion));
 
         }
 
