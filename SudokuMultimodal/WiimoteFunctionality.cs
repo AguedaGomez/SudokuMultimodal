@@ -19,15 +19,19 @@ namespace SudokuMultimodal
         Action<int> SolicitudCambioNúmeroPosActual;
         Action<string> MoverSeleccion;
         Action<string> MostrarMensaje;
+        Action DeshacerMovimiento;
+        Action BorrarNumero;
         DateTime ultimoTiempo = DateTime.MaxValue;
         float intervaloTiempo = 300f;
 
-        public WiimoteFunctionality(Action<int> SolicitudCambioNúmeroPosActual, Action<string> MoverSeleccion, Action<string> MostrarMensaje)
+        public WiimoteFunctionality(Action<int> SolicitudCambioNúmeroPosActual, Action<string> MoverSeleccion, Action<string> MostrarMensaje, Action BorrarNumero, Action DeshacerMovimiento)
         {
             wm = new Wiimote();
             this.MostrarMensaje = MostrarMensaje;
             this.SolicitudCambioNúmeroPosActual = SolicitudCambioNúmeroPosActual;
             this.MoverSeleccion = MoverSeleccion;
+            this.BorrarNumero = BorrarNumero;
+            this.DeshacerMovimiento = DeshacerMovimiento;
             gestureCapturer = new GestureCapturer();
             gestureRecognizer = new GestureRecognizer();
             CargarGestos();
@@ -50,7 +54,10 @@ namespace SudokuMultimodal
         {
             //llamar a la funcion que cambia numero
             Console.WriteLine("se ha reconocido el gesto " + obj);
-            Application.Current.Dispatcher.BeginInvoke(SolicitudCambioNúmeroPosActual, Int32.Parse(obj));
+            if (obj == "Borrar")
+                Application.Current.Dispatcher.BeginInvoke(BorrarNumero);
+            else
+                Application.Current.Dispatcher.BeginInvoke(SolicitudCambioNúmeroPosActual, Int32.Parse(obj));
         }
 
         private void GestureCapturer_GestureCaptured(Gesture obj)
@@ -71,6 +78,8 @@ namespace SudokuMultimodal
                     direccion = "izquierda";
                 else if (e.WiimoteState.ButtonState.Right)
                     direccion = "derecha";
+                else if (e.WiimoteState.ButtonState.Minus)
+                    Application.Current.Dispatcher.BeginInvoke(DeshacerMovimiento);
                 if (direccion != "")
                 {
                     Application.Current.Dispatcher.BeginInvoke(MoverSeleccion, direccion);

@@ -61,7 +61,7 @@ namespace SudokuMultimodal
         {
             speech = new Speech(SolicitudCambioNúmero, SolicitudCambioNúmeroPosActual, PonSelecciónEn, DeshacerMovimiento);
             speech.TerminaEscucha += Speech_TerminaEscucha;
-            wmF = new WiimoteFunctionality(SolicitudCambioNúmeroPosActual, MoverSeleccion, MostrarMensaje);
+            wmF = new WiimoteFunctionality(SolicitudCambioNúmeroPosActual, MoverSeleccion, MostrarMensaje, BorrarNumero, DeshacerMovimiento);
             
         }
 
@@ -261,13 +261,20 @@ namespace SudokuMultimodal
 
         private void DeshacerMovimiento()
         {
-            if (BotonDeshacer.IsEnabled)
+            if (BotonDeshacer.IsEnabled) //ctrl + z
             {
                 memoria.GetUltimoMovimiento(out int cuadrante, out int posicion);
                 Sudoku.CuadrantePosicionAFilaColumna(cuadrante, posicion, out int fila, out int columna);
                 PonSelecciónEn(fila, columna);
                 _cuadrantes[cuadrante].QuitarNúmeroEnPos(posicion);
             }
+
+        }
+
+        private void BorrarNumero() //para los numeros que ya hay puestos y no se pueden deshacer porque no están en memoria
+        {
+            Sudoku.FilaColumnaACuadrantePosicion(_filaActual, _columnaActual, out int cuadrante, out int posicion);
+            _cuadrantes[cuadrante].QuitarNúmeroEnPos(posicion);
 
         }
 
