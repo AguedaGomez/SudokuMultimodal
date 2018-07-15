@@ -61,7 +61,7 @@ namespace SudokuMultimodal
         {
             speech = new Speech(SolicitudCambioNúmero, SolicitudCambioNúmeroPosActual, PonSelecciónEn, DeshacerMovimiento);
             speech.TerminaEscucha += Speech_TerminaEscucha;
-            wmF = new WiimoteFunctionality(SolicitudCambioNúmeroPosActual, MoverSeleccion);
+            wmF = new WiimoteFunctionality(SolicitudCambioNúmeroPosActual, MoverSeleccion, MostrarMensaje);
             
         }
 
@@ -314,9 +314,14 @@ namespace SudokuMultimodal
             DeshacerMovimiento();
         }
 
-        private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        private void MostrarMensaje(string mensaje)
         {
-
+            MessageBoxButton buttons = MessageBoxButton.YesNo;
+            var resultado = MessageBox.Show(mensaje, "No se encuentra Wiimote", buttons);
+            if(resultado == MessageBoxResult.No)
+            {
+                this.Close();
+            }
         }
 
         void checkboxVerPosiblesClick(object sender, RoutedEventArgs e)

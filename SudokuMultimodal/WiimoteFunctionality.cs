@@ -18,12 +18,14 @@ namespace SudokuMultimodal
         GestureRecognizer gestureRecognizer;
         Action<int> SolicitudCambioNúmeroPosActual;
         Action<string> MoverSeleccion;
+        Action<string> MostrarMensaje;
         DateTime ultimoTiempo = DateTime.MaxValue;
         float intervaloTiempo = 300f;
 
-        public WiimoteFunctionality(Action<int> SolicitudCambioNúmeroPosActual, Action<string> MoverSeleccion)
+        public WiimoteFunctionality(Action<int> SolicitudCambioNúmeroPosActual, Action<string> MoverSeleccion, Action<string> MostrarMensaje)
         {
             wm = new Wiimote();
+            this.MostrarMensaje = MostrarMensaje;
             this.SolicitudCambioNúmeroPosActual = SolicitudCambioNúmeroPosActual;
             this.MoverSeleccion = MoverSeleccion;
             gestureCapturer = new GestureCapturer();
@@ -36,7 +38,7 @@ namespace SudokuMultimodal
             }
             catch (Exception)
             {
-                MessageBox.Show("El dispositivo Wiimote no está conectado");
+                MostrarMensaje("El dispositivo Wiimote no está conectado. ¿Quieres seguir jugando sin él?");
             }
             
             wm.SetReportType(InputReport.ButtonsAccel, true);
