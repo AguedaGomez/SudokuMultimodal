@@ -2,6 +2,9 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Sudoku" Height="470" Width="600" MinWidth="600" MinHeight="470">
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Undo" CanExecute="BotonDeshacer_Click"></CommandBinding>
+    </Window.CommandBindings>
     <Viewbox Stretch="Uniform" Margin="10">
         <DockPanel LastChildFill="False">
             <StackPanel Orientation="Horizontal">
@@ -41,10 +44,10 @@
                         <Button Click="numero_Click" Content="9"/>
                     </UniformGrid>
                 </StackPanel>
-                
+
                 <StackPanel Orientation="Horizontal" DockPanel.Dock ="Left">
 
-                    
+
                 </StackPanel>
 
             </StackPanel>

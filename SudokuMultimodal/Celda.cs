@@ -58,6 +58,7 @@ namespace SudokuMultimodal
             if (número != 0)
                 ForzarPonerNúmero(número);
             tinta = new Tinta(inkCanvas, _solicitudCambioNúmero);
+
         }
 
         void UI_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -66,7 +67,6 @@ namespace SudokuMultimodal
                 QuitarNúmero();
             _solicitudSeleccionada();
         }
-
         #region public
 
         public void PonerNúmero(int número)
@@ -118,6 +118,7 @@ namespace SudokuMultimodal
         DrawingAttributes tintaDA = new DrawingAttributes() { Color = Colors.Blue, Height = 4, Width = 4 };
 
         UniformGrid _uniformGrid = new UniformGrid() { Rows = Sudoku.Tamaño / 3, Columns = Sudoku.Tamaño / 3 };
+
 
         TextBlock _textBlock = new TextBlock()
         {

@@ -25,7 +25,6 @@ namespace SudokuMultimodal
             Loaded += new RoutedEventHandler(MainWindow_Loaded);
             InitializeComponent();
         }
-
         #region private
 
         Sudoku _s;
@@ -163,6 +162,9 @@ namespace SudokuMultimodal
                         e.Handled = true;
                     }
                     break;
+                case Key.Space:
+                    ComenzarEscucha();
+                    break;
                 default:
                     break;
             }
@@ -258,11 +260,15 @@ namespace SudokuMultimodal
 
         private void DeshacerMovimiento()
         {
-            memoria.GetUltimoMovimiento(out int cuadrante, out int posicion);
-            Sudoku.CuadrantePosicionAFilaColumna(cuadrante, posicion, out int fila, out int columna);
-            PonSelecciónEn(fila, columna);
-            _cuadrantes[cuadrante].QuitarNúmeroEnPos(posicion);
-            memoria.DeshacerUltimoMovimiento();
+            if (BotonDeshacer.IsEnabled)
+            {
+                memoria.GetUltimoMovimiento(out int cuadrante, out int posicion);
+                Sudoku.CuadrantePosicionAFilaColumna(cuadrante, posicion, out int fila, out int columna);
+                PonSelecciónEn(fila, columna);
+                _cuadrantes[cuadrante].QuitarNúmeroEnPos(posicion);
+                memoria.DeshacerUltimoMovimiento();
+            }
+
         }
 
         void SolicitudSeleccionada(int fila, int col)
@@ -291,16 +297,26 @@ namespace SudokuMultimodal
             SolicitudCambioNúmero(_filaActual, _columnaActual, int.Parse(b.Content.ToString()));
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void ComenzarEscucha()
         {
             speech.StartRecognition = true;
             BotonEscuchar.Content = "Escuchando";
             BotonEscuchar.IsEnabled = false;
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            ComenzarEscucha();
+        }
+
         private void BotonDeshacer_Click(object sender, RoutedEventArgs e)
         {
             DeshacerMovimiento();
+        }
+
+        private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+
         }
 
         void checkboxVerPosiblesClick(object sender, RoutedEventArgs e)
