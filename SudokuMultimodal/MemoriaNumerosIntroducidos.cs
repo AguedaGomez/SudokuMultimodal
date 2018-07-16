@@ -18,6 +18,8 @@ namespace SudokuMultimodal
 
         public void GuardarMovimiento (KeyValuePair<int, int> mov)
         {
+            if (listaCuadrantesOcupados.Contains(mov))
+                EliminarCuadrante(mov);
             listaCuadrantesOcupados.Add(mov);
             if (listaCuadrantesOcupados.Count == 1)
                 finCuadrantesOcupados(true);
