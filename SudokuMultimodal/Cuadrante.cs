@@ -13,7 +13,7 @@ namespace SudokuMultimodal
     {
         public Border UI { get; private set; }
 
-        public Cuadrante(Sudoku s, int cuad, Action<int,int,int> solicitudCambioNúmero, Action<int,int> solicitudSeleccionada, Action eliminarDeMemoria)
+        public Cuadrante(Sudoku s, int cuad, Action<int,int,int> solicitudCambioNúmero, Action<int,int> solicitudSeleccionada)
         {
             var ug = new UniformGrid() { Rows = Sudoku.Tamaño / 3, Columns = Sudoku.Tamaño / 3 };
             UI = new Border()
@@ -27,7 +27,7 @@ namespace SudokuMultimodal
             {
                 int f, c;
                 Sudoku.CuadrantePosicionAFilaColumna(cuad, i, out f, out c);
-                var celda = new Celda(s[f, c], (n) => solicitudCambioNúmero(f, c, n), () => solicitudSeleccionada(f,c), () => eliminarDeMemoria());
+                var celda = new Celda(s[f, c], (n) => solicitudCambioNúmero(f, c, n), () => solicitudSeleccionada(f,c));
                 _celdas[i] = celda;
                 ug.Children.Add(celda.UI);
             }
@@ -71,6 +71,10 @@ namespace SudokuMultimodal
             _celdas[pos].EstáSeleccionada = false;
         }
 
+        public int GetNumero(int pos)
+        {
+            return _celdas[pos].GetNumero();
+        }
         #endregion
 
         #region private

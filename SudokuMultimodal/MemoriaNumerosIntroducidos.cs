@@ -9,32 +9,33 @@ namespace SudokuMultimodal
     public class MemoriaNumerosIntroducidos
     {
         public event Action<bool> finCuadrantesOcupados;
-       List<KeyValuePair<int,int>> listaCuadrantesOcupados;
+       List<Movimiento> listaCuadrantesOcupados;
 
         public MemoriaNumerosIntroducidos()
         {
-            listaCuadrantesOcupados = new List<KeyValuePair<int, int>>();
+            listaCuadrantesOcupados = new List<Movimiento>();
         }
 
-        public void GuardarMovimiento (KeyValuePair<int, int> mov)
+        public void GuardarMovimiento (int numero, int cuadrante, int posicion)
         {
-            if (listaCuadrantesOcupados.Contains(mov))
-                EliminarCuadrante(mov);
-            listaCuadrantesOcupados.Add(mov);
+            Movimiento m = new Movimiento(numero, cuadrante, posicion);
+            listaCuadrantesOcupados.Add(m);
             if (listaCuadrantesOcupados.Count == 1)
                 finCuadrantesOcupados(true);
         }
 
-        public void GetUltimoMovimiento (out int cuadrante, out int posicion)
+        public void GetUltimoMovimiento (out int numero, out int cuadrante, out int posicion)
         {
             var ultimoMovimiento = listaCuadrantesOcupados.Last();
-            cuadrante = ultimoMovimiento.Key;
-            posicion = ultimoMovimiento.Value;
+            numero = ultimoMovimiento.numero;
+            cuadrante = ultimoMovimiento.cuadrante;
+            posicion = ultimoMovimiento.posicion;
+            EliminarCuadrante(ultimoMovimiento);
         }
 
-        public void EliminarCuadrante(KeyValuePair<int,int> cuadranteBorrado)
+        public void EliminarCuadrante(Movimiento m)
         {
-            listaCuadrantesOcupados.Remove(cuadranteBorrado);
+            listaCuadrantesOcupados.Remove(m);
             if (listaCuadrantesOcupados.Count <= 0)
                 finCuadrantesOcupados.Invoke(false);
         }

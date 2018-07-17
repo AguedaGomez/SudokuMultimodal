@@ -102,7 +102,7 @@ namespace SudokuMultimodal
 
             for (int cuad = 0; cuad < Sudoku.Tamaño; ++cuad)
             {
-                var cuadrante = new Cuadrante(_s, cuad, SolicitudCambioNúmero, SolicitudSeleccionada, EliminarDeMemoria);
+                var cuadrante = new Cuadrante(_s, cuad, SolicitudCambioNúmero, SolicitudSeleccionada);
                 _cuadrantes[cuad] = cuadrante;
                 _ug.Children.Add(cuadrante.UI);
             }
@@ -119,7 +119,7 @@ namespace SudokuMultimodal
                 case Key.Delete:
                 case Key.Back:
                     {
-                        _s[_filaActual, _columnaActual] = 0;
+                        BorrarNumero();
                         ActualizaPosibles();
                     }
                     break;
@@ -249,25 +249,27 @@ namespace SudokuMultimodal
 
         void SolicitudCambioNúmero(int fila, int col, int número)
         {
-            _s[fila, col] = número;
             GuardarMovimiento();
+            _s[fila, col] = número;
+           
         }
 
         private void GuardarMovimiento()
         {
             int cuadrante, posición;
             Sudoku.FilaColumnaACuadrantePosicion(_filaActual, _columnaActual, out cuadrante, out posición);
-            memoria.GuardarMovimiento(new KeyValuePair<int, int>(cuadrante, posición));
+            int numero = _cuadrantes[cuadrante].GetNumero(posición);
+            memoria.GuardarMovimiento(numero, cuadrante, posición);
         }
 
         private void DeshacerMovimiento()
         {
             if (BotonDeshacer.IsEnabled) //ctrl + z
             {
-                memoria.GetUltimoMovimiento(out int cuadrante, out int posicion);
+                memoria.GetUltimoMovimiento(out int numero, out int cuadrante, out int posicion);
                 Sudoku.CuadrantePosicionAFilaColumna(cuadrante, posicion, out int fila, out int columna);
                 PonSelecciónEn(fila, columna);
-                _cuadrantes[cuadrante].QuitarNúmeroEnPos(posicion);
+                _s[_filaActual, _columnaActual] = numero;
             }
 
         }
@@ -275,16 +277,12 @@ namespace SudokuMultimodal
         private void BorrarNumero() //para los numeros que ya hay puestos y no se pueden deshacer porque no están en memoria
         {
             Sudoku.FilaColumnaACuadrantePosicion(_filaActual, _columnaActual, out int cuadrante, out int posicion);
-            _cuadrantes[cuadrante].QuitarNúmeroEnPos(posicion);
+            int numero = _cuadrantes[cuadrante].GetNumero(posicion);
+            memoria.GuardarMovimiento(numero, cuadrante, posicion);
+            _s[_filaActual, _columnaActual] = 0;
 
         }
 
-        private void EliminarDeMemoria()
-        {
-            Sudoku.FilaColumnaACuadrantePosicion(_filaActual, _columnaActual, out int cuadrante, out int posicion);
-            memoria.EliminarCuadrante(new KeyValuePair<int, int>(cuadrante, posicion));
-
-        }
 
         void SolicitudSeleccionada(int fila, int col)
         {
