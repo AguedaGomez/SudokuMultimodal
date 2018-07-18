@@ -63,6 +63,7 @@ namespace SudokuMultimodal
 
         void UI_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
+            
             if (this._estáSeleccionado)
                _solicitudCambioNúmero(0);
             _solicitudSeleccionada();
@@ -118,6 +119,7 @@ namespace SudokuMultimodal
         Action _solicitudSeleccionada;
         static FontFamily _fuente = new FontFamily("Comic Sans MS");
         bool _estáSeleccionado;
+        
         Tinta tinta;
 
         Border selecciónBorde = new Border() { BorderBrush = Brushes.Red, BorderThickness = new Thickness(2), Visibility = Visibility.Hidden };

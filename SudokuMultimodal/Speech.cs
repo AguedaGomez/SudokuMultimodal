@@ -11,6 +11,7 @@ namespace SudokuMultimodal
     public class Speech
     {
         public bool hayMovimientos;
+        public bool deshaciendoVariosMovimientos;
         public bool StartRecognition { get; set; }
         public event Action TerminaEscucha;
 
@@ -44,6 +45,7 @@ namespace SudokuMultimodal
             dispatcherTimer.Tick += DispatcherTimer_Tick;
             dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 550);
             mvtosDeshechos = 0;
+            deshaciendoVariosMovimientos = false;
         }
 
         private void DispatcherTimer_Tick(object sender, EventArgs e)
@@ -59,6 +61,7 @@ namespace SudokuMultimodal
                 dispatcherTimer.Stop();
                 mvtosDeshechos = 0;
                 mvtosADeshacer = 0;
+                deshaciendoVariosMovimientos = false;
             }
 
         }
@@ -78,6 +81,7 @@ namespace SudokuMultimodal
                 if (e.Result.Text.Contains("Deshacer"))
                 {
                     mvtosADeshacer = Int32.Parse(e.Result.Semantics["Cantidad"].Value.ToString());
+                    deshaciendoVariosMovimientos = true;
                     dispatcherTimer.Start();
                     
                 }

@@ -16,20 +16,20 @@ namespace SudokuMultimodal
             listaCuadrantesOcupados = new List<Movimiento>();
         }
 
-        public void GuardarMovimiento (int numero, int cuadrante, int posicion)
+        public void GuardarMovimiento (int numero, int fila, int columna)
         {
-            Movimiento m = new Movimiento(numero, cuadrante, posicion);
+            Movimiento m = new Movimiento(numero, fila, columna);
             listaCuadrantesOcupados.Add(m);
             if (listaCuadrantesOcupados.Count == 1)
                 finCuadrantesOcupados(true);
         }
 
-        public void GetUltimoMovimiento (out int numero, out int cuadrante, out int posicion)
+        public void GetUltimoMovimiento (out int numero, out int fila, out int columna)
         {
             var ultimoMovimiento = listaCuadrantesOcupados.Last();
             numero = ultimoMovimiento.numero;
-            cuadrante = ultimoMovimiento.cuadrante;
-            posicion = ultimoMovimiento.posicion;
+            fila = ultimoMovimiento.fila;
+            columna = ultimoMovimiento.columna;
             EliminarCuadrante(ultimoMovimiento);
         }
 

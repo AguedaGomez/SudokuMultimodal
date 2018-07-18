@@ -190,30 +190,33 @@ namespace SudokuMultimodal
 
         void MoverSeleccion(string direccion)
         {
-            int fila = _filaActual;
-            int columna = _columnaActual;
-            switch (direccion)
+            if(!speech.deshaciendoVariosMovimientos)
             {
-                case "derecha":
-                    if (columna < Sudoku.Tamaño-1)
-                        columna += 1;
-                    break;
-                case "izquierda":
-                    if (columna > 0)
-                        columna -= 1;
-                    break;
-                case "arriba":
-                    if (fila > 0)
-                        fila -= 1;
-                    break;
-                case "abajo":
-                    if (fila < Sudoku.Tamaño-1)
-                    fila += 1;
-                    break;
-                default:
-                    break;
+                int fila = _filaActual;
+                int columna = _columnaActual;
+                switch (direccion)
+                {
+                    case "derecha":
+                        if (columna < Sudoku.Tamaño - 1)
+                            columna += 1;
+                        break;
+                    case "izquierda":
+                        if (columna > 0)
+                            columna -= 1;
+                        break;
+                    case "arriba":
+                        if (fila > 0)
+                            fila -= 1;
+                        break;
+                    case "abajo":
+                        if (fila < Sudoku.Tamaño - 1)
+                            fila += 1;
+                        break;
+                    default:
+                        break;
+                }
+                PonSelecciónEn(fila, columna);
             }
-            PonSelecciónEn(fila, columna);
 
         }
 
@@ -249,9 +252,12 @@ namespace SudokuMultimodal
 
         void SolicitudCambioNúmero(int fila, int col, int número)
         {
-            GuardarMovimiento();
-            _s[fila, col] = número;
-           
+            if (!speech.deshaciendoVariosMovimientos)
+            {
+                GuardarMovimiento();
+                _s[fila, col] = número;
+            }
+
         }
 
         private void GuardarMovimiento()
@@ -259,15 +265,15 @@ namespace SudokuMultimodal
             int cuadrante, posición;
             Sudoku.FilaColumnaACuadrantePosicion(_filaActual, _columnaActual, out cuadrante, out posición);
             int numero = _cuadrantes[cuadrante].GetNumero(posición);
-            memoria.GuardarMovimiento(numero, cuadrante, posición);
+            memoria.GuardarMovimiento(numero, _filaActual, _columnaActual);
         }
 
         private void DeshacerMovimiento()
         {
             if (BotonDeshacer.IsEnabled) //ctrl + z
             {
-                memoria.GetUltimoMovimiento(out int numero, out int cuadrante, out int posicion);
-                Sudoku.CuadrantePosicionAFilaColumna(cuadrante, posicion, out int fila, out int columna);
+                memoria.GetUltimoMovimiento(out int numero, out int fila, out int columna);
+                //Sudoku.CuadrantePosicionAFilaColumna(cuadrante, posicion, out int fila, out int columna);
                 PonSelecciónEn(fila, columna);
                 _s[_filaActual, _columnaActual] = numero;
             }
@@ -278,7 +284,7 @@ namespace SudokuMultimodal
         {
             Sudoku.FilaColumnaACuadrantePosicion(_filaActual, _columnaActual, out int cuadrante, out int posicion);
             int numero = _cuadrantes[cuadrante].GetNumero(posicion);
-            memoria.GuardarMovimiento(numero, cuadrante, posicion);
+            memoria.GuardarMovimiento(numero, _filaActual, _columnaActual);
             _s[_filaActual, _columnaActual] = 0;
 
         }
@@ -286,7 +292,8 @@ namespace SudokuMultimodal
 
         void SolicitudSeleccionada(int fila, int col)
         {
-            PonSelecciónEn(fila, col);
+            if(!speech.deshaciendoVariosMovimientos)
+                PonSelecciónEn(fila, col);
         }
 
         void SolicitudCambioNúmeroPosActual(int numero)
@@ -298,12 +305,14 @@ namespace SudokuMultimodal
 
         void botónNuevoClick(object sender, RoutedEventArgs e)
         {
-            NuevaPartida();
+            if(!speech.deshaciendoVariosMovimientos)
+                NuevaPartida();
         }
 
         void botónReiniciarClick(object sender, RoutedEventArgs e)
         {
-            ReiniciarPartida();
+            if(!speech.deshaciendoVariosMovimientos)
+                ReiniciarPartida();
         }
 
         private void numero_Click(object sender, RoutedEventArgs e)
@@ -321,12 +330,14 @@ namespace SudokuMultimodal
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            ComenzarEscucha();
+            if (!speech.deshaciendoVariosMovimientos)
+                ComenzarEscucha();
         }
 
         private void BotonDeshacer_Click(object sender, RoutedEventArgs e)
         {
-            DeshacerMovimiento();
+            if (!speech.deshaciendoVariosMovimientos)
+                DeshacerMovimiento();
         }
 
         private void MostrarMensaje(string mensaje)

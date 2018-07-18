@@ -9,14 +9,14 @@ namespace SudokuMultimodal
     public class Movimiento
     {
         public int numero;
-        public int cuadrante;
-        public int posicion;
+        public int fila;
+        public int columna;
 
-        public Movimiento(int numero, int cuadrante, int posicion)
+        public Movimiento(int numero, int fila, int columna)
         {
             this.numero = numero;
-            this.cuadrante = cuadrante;
-            this.posicion = posicion;
+            this.fila = fila;
+            this.columna = columna;
         }
     }
 }
